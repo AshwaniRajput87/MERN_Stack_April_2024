@@ -49,7 +49,7 @@
 # What is nodemon?
 
    - nodemon is a helpful tool for developing nodeJS apps. 
-   - it automatically restarts the node server whenever the changes will detect inside any file.
+   - it automatically restarts the node server whenever the changes will detecting inside any file.
    - npm i -g nodemon or yarn global add nodemon
    - install nodemon in package.JSON: yarn add nodemon -D or yarn add nodemon --save-dev
 
@@ -67,7 +67,7 @@
         npm init or yarn init
 
     - ExpressJS:
-      - minimal and flexible nodeJS web application framework that provides you a robust and simplified features of web and mobile applications.
+      - minimal and flexible nodeJS web application framework that provides you a robust and simplify features of web and mobile applications.
 
       - ExpressJS is wrapper of HTTP module of nodeJS.
 
@@ -99,38 +99,10 @@
 
             /api/delete/user -> to delete a user
                 
-    - what is middlewares in expressJS?
 
-       In expressJS, middleware are functions that have access to request, response object and next middleware function in the application's request and response cycle.
            
 
 
-   - what is routes in expressJS?
-
-      - Defines the path at which specific middleware is executed in response to the HTTP requests.
-
-   - Basic error handling using try and catch block
 
 
-   - What is mongodb?
-
-    - It's a document-oriented database to persist data in JSON-like format.
-      - In other words, MongoDB is a NoSQL database management system that stores data in flexible, JSON-like documents, 
-    providing high performance, scalability, and flexibility for building modern applications.
-
-   - How to use Mongodb? How to configure mongoose?
-
-        - for using monogo -> mongo altas 
-        1. need to signup 
-        2. login
-        3. then it will ask you to create cluster
-        4. Data service tab will come up
-
-    - What is mongoose?
-        - Mongoose is an Object Data Modeling (ODM) library/driver for MongoDB and Node.js/Express.js, that provides a straightforward schema-based solution to model application data.
-        - It simplifies interactions with MongoDB databases by providing a structured approach to define entities, 
-          schemas, models, and queries.
-
-   - install mongodb and mongoose dependencies -> https://mongoosejs.com/
-      npm i mongodb mongoose or yarn add mongodb and mongoose 
 

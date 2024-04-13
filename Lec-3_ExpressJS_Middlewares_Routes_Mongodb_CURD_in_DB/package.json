@@ -1,0 +1,26 @@
+{
+  "name": "Lec-2_Nodemon_ExpressJS_API_Development",
+  "version": "1.0.0",
+  "description": "Learning NodeJS and ExpressJS framework",
+  "main": "src",
+  "author": "Ashwani Rajput",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/usageOfExpressConcepts.js",
+    "dev": "nodemon src/api.js"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src/"
+    ],
+    "ext": "js, json"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.1"
+  }
+}
