@@ -128,8 +128,11 @@
 
     - What is mongoose?
         - Mongoose is an Object Data Modeling (ODM) library/driver for MongoDB and Node.js/Express.js, that provides a straightforward schema-based solution to model application data.
+
         - It simplifies interactions with MongoDB databases by providing a structured approach to define entities, 
           schemas, models, and queries.
+
+        - refer the notepad notes 
 
    - install mongodb and mongoose dependencies -> https://mongoosejs.com/
       npm i mongodb mongoose or yarn add mongodb and mongoose 
