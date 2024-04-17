@@ -1,5 +1,13 @@
 // Mondb connect URL: mongodb+srv://ashwinrajput87:<password>@cluster0.jdq8n60.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
+/***
+
+PORT = 5050
+DB_USER = ashwinrajput87
+DB_PASSWORD = 8Gj5g91vLUlL6pt7
+
+ */
+
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -8,7 +16,11 @@ const app = express();
 
 dotenv.config();
 
+// const DB_USER = 'ashwinrajput87'
+// const DB_PASSWORD = '8Gj5g91vLUlL6pt7'
+
 const { PORT, DB_USER, DB_PASSWORD } = process.env;
+
 
 const dbURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.jdq8n60.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
