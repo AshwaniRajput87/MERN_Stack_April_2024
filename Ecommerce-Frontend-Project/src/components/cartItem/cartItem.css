@@ -1,0 +1,70 @@
+/* CartItem.css */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item:last-child {
+    padding-bottom: 0;
+}
+
+.cart-item:first-child {
+    border-top: 1px solid #ddd;
+}
+  
+.cart-item-details {
+    display: flex;
+    align-items: center;
+    flex: 1; /* Left side takes up most of the space */
+}
+  
+.cart-item-image img {
+    max-width: 80px; /* Adjust image size as needed */
+    height: auto;
+    margin-right: 10px; /* Add spacing between image and details */
+}
+  
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-name,
+.cart-item-price,
+.cart-item-total-price,
+.cart-item-quantity {
+   font-size: 1.6rem;
+   font-weight: bold;
+}
+
+.cart-item-name {
+    width: 75%;
+}
+  
+/* .cart-item-quantity {
+    display: flex;
+    align-items: center;
+} */
+  
+/* .quantity-button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px; 
+    font-size: 1.4rem;
+} */
+  
+.cart-item-total {
+    text-align: right;
+    flex: 1; /* Bottom section takes up most of the space */
+}
+  
+.cart-item-total-price {
+    font-weight: bold;
+    color: #333;
+}
+  

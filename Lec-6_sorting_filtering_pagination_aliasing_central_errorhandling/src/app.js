@@ -13,7 +13,10 @@ const { PORT, DB_URL, DB_USER, DB_PASSWORD } = process.env;
 
 const port = PORT;
 
-const dbURL = `mongodb://${DB_USER}:${DB_PASSWORD}@cluster0.jdq8n60.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const dbURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.jdq8n60.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+
+
+
 
 mongoose.connect(dbURL).then((connection)=>{
     // console.log('db is connected', connection);
@@ -26,14 +29,15 @@ app.use(express.json()); // to read data from request body
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 
+app.use((err,res) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
 
-app.use('/search', (req, res)=>{
-    console.log(req.query);
-    res.status(200).json({
-        message: "Search has been done successfully!",
-        data: req.query
+    res.status(statusCode).json({
+        status: statusCode,
+        message: message
     });
-});
+})
 
 
 app.listen(port, ()=>{

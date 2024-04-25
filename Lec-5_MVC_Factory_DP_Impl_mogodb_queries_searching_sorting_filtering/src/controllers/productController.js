@@ -98,7 +98,7 @@ const getProductHandler = async(req, res) => {
         let queryResponsePromise = ProductModel.find();
 
         if(sortParams) {
-            const [sortParam, order] = sortParams.split();
+            const [sortParam, order] = sortParams.split(" ");
 
             if(order === 'asc'){
                 queryResponsePromise = queryResponsePromise.sort(sortParam);
