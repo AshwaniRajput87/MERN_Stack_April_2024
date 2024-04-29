@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .registration-form {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+    .registration-form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .registration-form input[type="text"],
+    .registration-form input[type="email"],
+    .registration-form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    .registration-form button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="registration-form">
+    <h1>Registration</h1>
+    <form id="myForm" action="/api/users" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button id ="submit" type="submit">Register</button>
+    </form>
+
+    <script>
+        const submit = document.getElementById("submit");
+        alert("its serrious");
+        console.log(submit)
+        submit.onclick = function(e){
+            e.preventDefault();
+            console.log("its clicked")
+
+            const form = document.getElementById('myForm');
+            const formData = new FormData(form);
+            const data = {};
+            for (const [key, value]  of formData.entries()) {
+                data[key] = value;
+            }
+            data.confirmPassword= data.password;
+
+
+            const url = '/api/users';
+            
+            fetch(url, {
+            method: 'POST', // Set the HTTP method to POST
+            headers: {
+                'Content-Type': 'application/json' // Set the content type
+            },
+            body: JSON.stringify(data) // Convert data to JSON string
+            })
+            .then(response => response.json()) // Parse response as JSON
+            .then(responseData => {
+            console.log(responseData); // Handle the response data
+            })
+            .catch(error => {
+            console.error(error); // Handle any errors
+            });
+
+
+
+
+        };
+
+    </script>
+  </div>
+</body>
+</html>
