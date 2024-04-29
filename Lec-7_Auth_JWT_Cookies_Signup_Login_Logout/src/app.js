@@ -1,22 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const jwt = require('jsonwebtoken');
+const path = require('path');
 const CookieParser = require('cookie-parser');
 
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 app.use(CookieParser());
 
 dotenv.config();
 
-const { PORT, DB_URL, DB_USER, DB_PASSWORD , SECRET_KEY } = process.env;
+const { PORT, MONGO_DB_DOMAIN, DB_USER, DB_PASSWORD , SECRET_KEY } = process.env;
 
 const port = PORT;
 
-const dbURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.jdq8n60.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const dbURL = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${MONGO_DB_DOMAIN}/?retryWrites=true&w=majority&appName=Cluster0`
 
 mongoose.connect(dbURL).then((connection)=>{
     // console.log('db is connected', connection);
@@ -24,85 +25,36 @@ mongoose.connect(dbURL).then((connection)=>{
 });
 
 
+console.log(__dirname);
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(`${__dirname}/../`, 'public')));
 app.use(express.json()); // to read data from request body
+
+// the before
+app.use((req,res,next)=>{
+    console.log("I am in the middle thing")
+   
+    const container = {SECRET_KEY};
+    req.container = container;
+    console.log(container);
+    next();
+   });
+   
+
 
 // mouting the routes
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
-//app.use('/api/auth', authRoutes);
-
+app.use('/api/auth',authRoutes);
+// error goes after .. i think
 app.use((err,res) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
-
+    console.log("made it to the generic erro thingie");
     res.status(statusCode).json({
         status: statusCode,
         message: message
     });
-})
-
-
-const payload  = {user: "Ashwani Rajput"};
-
-// generate the jwt
-app.get('/signup', (req, res)=>{
-    try {
-        jwt.sign({data: payload}, SECRET_KEY, {algorithm: 'HS512'},(err, data)=>{
-
-            if(err) {
-                console.log(err);
-                throw new Error(err.message);
-            }
-
-            res.cookie('token', data, {
-                maxAge: 30 * 60 * 1000,
-                httpOnly: true
-            });
-
-            res.status(200).json({
-                authToken: data
-            });
-        })
-        
-    } catch (error) {
-        res.json({
-            status: "failure",
-            message: error.message
-        })
-    }
-
-});
-
-
-app.get("/verify", (req, res)=> {
-
-    try {
-
-        const { token }  = req.cookies;
-        console.log(token);
-
-        const decoedToken = jwt.verify(token, SECRET_KEY);
-
-        res.status(200).json({
-            message: 'token is decoded',
-            decoedToken
-        });
-        
-    } catch (error) {
-         res.status(400).json({
-            status: "failure",
-            message: error.message
-        })
-        
-    }
-
-})
-
-app.get('/logout', (req, res)=> {
-    res.clearCookie('token');
-    res.status(200).json({
-        message: 'user logged out successfully'
-    })
 })
 
 

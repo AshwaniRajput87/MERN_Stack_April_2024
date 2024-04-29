@@ -73,9 +73,9 @@
             data.confirmPassword= data.password;
 
 
-            const url = '/api/users';
-            
-            fetch(url, {
+            const url ='/api/auth/signUp/';// '/api/users';
+            const urlVerify = '/api/auth/verify';
+        fetch(url, {
             method: 'POST', // Set the HTTP method to POST
             headers: {
                 'Content-Type': 'application/json' // Set the content type
@@ -83,15 +83,26 @@
             body: JSON.stringify(data) // Convert data to JSON string
             })
             .then(response => response.json()) // Parse response as JSON
-            .then(responseData => {
-            console.log(responseData); // Handle the response data
-            })
+            .then(async responseData => {
+
+                console.log(responseData); // Handle the response data
+                if(!responseData.authToken)
+                {
+                  alert("ok something went wrong");
+                  return;
+                }
+
+              let verification =  await fetch(`${urlVerify}/`).then(r=>r.json());
+              console.log("verification:",verification);
+              alert("yay!!! you're so verified!");
+
+
+            }) 
             .catch(error => {
             console.error(error); // Handle any errors
             });
 
-
-
+        
 
         };
 
