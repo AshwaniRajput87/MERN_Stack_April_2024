@@ -2,30 +2,24 @@ const UserModel = require('../models/userModel');
 
 const createUser = async(req, res) => {
 
-    const userObj = req.body;
-
-    if(userObj) {
-        try {
+    try {
         
-            let user =  await UserModel.create(userObj);
-            console.log(user);
+        let user =  UserModel.create(req.body);
 
-            if(!user) {
-                res.status(400).json({
-                    status:"failure"
-                }) 
-            }
-
-            res.status(200).json({
-                status:"success",
-                message: "User has been registered successfully!"
-            })
-        }catch(error) {
-            res.status(500).json({message: 'Internal Server Error'});
+        if(!user) {
+            res.status(400).json({
+                status:"failure"
+            }) 
         }
-    }
 
-    
+        res.status(200).json({
+            status:"success",
+            message: "User has been registered successfully!"
+        })
+         
+    }catch(error) {
+        res.status(500).json({message: 'Internal Server Error'});
+    }
 }
 
 const getUsers = async(req, res) => {
@@ -81,7 +75,7 @@ const deleteUser = async(req, res) =>{
             res.status(404).json({message: "user not found!"})
         }
 
-        res.status(200).json({message: "USer has been delete successfully!"});
+        res.status(200).json({message: "User has been delete successfully!"});
 
         
     } catch (error) {
