@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Razorpay = require('razorpay');
 const shortid = require('shortid');
-const crypto = require('crypto');
+const crypto = require('crypto'); // nodeJS crypto module -> https://nodejs.org/docs/latest/api/crypto.html#hmacdigestencoding
 
 
 const app = express();
