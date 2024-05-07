@@ -4,10 +4,12 @@ const dotenv = require('dotenv');
 const Razorpay = require('razorpay');
 const shortid = require('shortid');
 const crypto = require('crypto'); // nodeJS crypto module -> https://nodejs.org/docs/latest/api/crypto.html#hmacdigestencoding
+const cors = require('cors');
 
 
 const app = express();
 app.use(express.json()); // to read data from request body
+app.use(cors());
 
 dotenv.config();
 
@@ -35,6 +37,8 @@ const checkoutController = (req, res) => {
             receipt: shortid.generate(),
             payment_capture: 1
         };
+
+        // 1Rs = 100paise(very small uint in india currency)
 
         razorpayInstance.orders.create(options, function(err, order) {
             res.status(201).json({
@@ -93,15 +97,14 @@ const paymentVerificationController = (req, res) =>{
         res.status(500).json({
             status: "failure",
             message: "Internal Server Error"
-        })
-        
+        })  
     }
 
 }
 
 
 app.post('/checkout', checkoutController);
-app.post('/verification', paymentVerificationController);
+app.post('/verify', paymentVerificationController);
 
 app.listen(PORT, ()=>{
     console.log(`server is running at ${PORT}`)
