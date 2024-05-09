@@ -24,15 +24,15 @@ const createReviewController = async(req, res) =>{
 
         const productObject = await ProductModel.findById(productId);
         const averageRating = productObject.averageRating;
-        
 
-        if(averageRating){
-            console.log(averageRating);
+        if(Number(averageRating)){
            let sum = averageRating * productObject.reviews.length;
+           console.log(sum);
 
            let finalAvgRating = (sum + reviewObject.rating) / (productObject.reviews.length + 1); // (sum of all the ratings including average rating)/ number of reviews
 
            productObject.averageRating = finalAvgRating;
+             console.log('review object', reviewObject)
         } else {
             productObject.averageRating = reviewObject.rating;
         }
@@ -42,7 +42,7 @@ const createReviewController = async(req, res) =>{
         console.log(reviewObject);
 
         res.status(201).json({
-            status: "success",
+            satus: "success",
             data: reviewObject
         });
 
@@ -61,16 +61,16 @@ const getAllReviewForAProductController = async(req, res)  => {
         console.log(productId);
 
         // Pagination parameters
+        console.log(req.query);
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 3;
+        const limit = parseInt(req.query.limit) || 20;
         const skip = (page - 1) * limit;
 
         // Query the database to fetch all reviews associated with the product
-        const reviews = await ReviewModel.find({ productId })
+        const reviews = await ReviewModel.find({ product: productId })
             .skip(skip)
             .limit(limit)
             .exec();
-            console.log(reviews);
 
         // Send the retrieved reviews as a response
         res.status(200).json({
