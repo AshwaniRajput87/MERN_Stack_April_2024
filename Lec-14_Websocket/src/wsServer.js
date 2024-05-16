@@ -22,6 +22,8 @@ const httpServer = http.createServer(app);
 
 const io = new Server(httpServer);
 
+let room;
+
 io.on('connection', (socket)=>{
     console.log('a socket is connected', socket.id);
     //socket.emit("message", "Message from server");
@@ -32,6 +34,23 @@ io.on('connection', (socket)=>{
 
         socket.broadcast.emit("broadcast", data);
     });
+
+    socket.on("create_grp", (roomid)=>{
+        room = roomid;
+        socket.join(roomid);
+    });
+
+    socket.on("join_grp", ()=>{
+        console.log(socket.id + ' joined the room ' + room);
+        socket.join(room);
+    });
+
+    socket.on('grp_msg', (data)=>{
+
+        console.log('grp_message', data);
+
+        socket.to(room).emit('serv_grp_msg', data);
+    })
 
 });
 
